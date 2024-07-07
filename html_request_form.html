@@ -60,6 +60,19 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+        .spinner {
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -68,7 +81,7 @@
     <form id="requestForm">
         <div class="form-group">
             <label for="urlInput">URL:</label>
-            <input type="text" id="urlInput" name="url" value="http://json.extendsclass.com/bins" required>
+            <input type="text" id="urlInput" name="url" value="https://json.extendsclass.com/bins" required>
         </div>
         <div class="form-group">
             <label for="methodSelect">Method:</label>
@@ -94,19 +107,24 @@
     </form>
     <div class="response-container">
         <h2>Server Response:</h2>
+        <div id="spinner" class="spinner" style="display: none;"></div>
         <pre id="responseOutput"></pre>
     </div>
 </div>
-
 <script>
     const requestForm = document.getElementById("requestForm");
     const methodSelect = document.getElementById("methodSelect");
     const bodySection = document.getElementById("bodySection");
     const responseOutput = document.getElementById("responseOutput");
+    const spinner = document.getElementById("spinner");
 
     requestForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const { url, method, headers, body } = getFormData();
+        const uniqueUrl = `${url}?cacheBust=${new Date().getTime()}`;
+
+        spinner.style.display = 'block'; // Show the spinner
+        responseOutput.textContent = ''; // Clear previous response
 
         try {
             const options = {
@@ -115,7 +133,10 @@
                 body: method !== 'GET' && body ? JSON.stringify(JSON.parse(body)) : null,
             };
 
-            const response = await fetch(url, options);
+            console.log("Fetching URL:", uniqueUrl);
+            console.log("Request Options:", options);
+
+            const response = await fetch(uniqueUrl, options);
             const contentType = response.headers.get('content-type');
             let responseData;
 
@@ -132,6 +153,8 @@
             displayResponse(response, responseData);
         } catch (error) {
             responseOutput.textContent = `Error: ${error.message}`;
+        } finally {
+            spinner.style.display = 'none'; // Hide the spinner
         }
     });
 
@@ -170,5 +193,4 @@
     bodySection.style.display = methodSelect.value === "GET" ? "none" : "block";
 </script>
 </body>
-                </html>
-                                
+</html>
