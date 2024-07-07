@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTTP Request Form</title>
+    <title>HTTPS Request Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,7 +63,7 @@
         .spinner {
             border: 6px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 6px solid #3498db;
+            border-top: 6px solid #4CAF50;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
@@ -77,7 +77,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>HTTP Request Form</h1>
+    <h1>HTTPS Request Form</h1>
     <form id="requestForm">
         <div class="form-group">
             <label for="urlInput">URL:</label>
@@ -141,7 +141,7 @@
             let responseData;
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`HTTPS error! Status: ${response.status}`);
             }
 
             if (contentType && contentType.includes('application/json')) {
