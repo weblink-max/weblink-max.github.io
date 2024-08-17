@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        li.completed {
+            text-decoration: line-through;
+            background: #d4edda;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Routine Planner</h1>
+        
+        <!-- Weekday Routine -->
+        <div class="routine-section" id="morning-routine">
+            <h2>Weekdays - Morning (5:00 a.m. - 8:00 a.m.)</h2>
+            <ul>
+                <li>5:00 a.m. - 5:10 a.m.: Wake up and freshen up</li>
+                <li>5:10 a.m. - 5:30 a.m.: Exercise</li>
+                <li>5:30 a.m. - 6:30 a.m.: Physics/Math Practice</li>
+                <li>6:30 a.m. - 7:00 a.m.: Breakfast</li>
+                <li>7:00 a.m. - 8:00 a.m.: English/Alternative English</li>
+            </ul>
+        </div>
+
+        <div class="routine-section" id="afternoon-routine">
+            <h2>Weekdays - Afternoon (3:30 p.m. - 5:00 p.m.)</h2>
+            <ul>
+                <li>3:30 p.m. - 4:00 p.m.: Relax & Snack</li>
+                <li>4:00 p.m. - 4:30 p.m.: IT Practice</li>
+                <li>4:30 p.m. - 5:00 p.m.: Chemistry Practice</li>
+            </ul>
+        </div>
+
+        <div class="routine-section" id="evening-routine">
+            <h2>Weekdays - Evening (5:00 p.m. - 9:00 p.m.)</h2>
+            <ul>
+                <li>5:00 p.m. - 6:00 p.m.: Homework/Assignments</li>
+                <li>6:00 p.m. - 7:00 p.m.: Math/Physics Revision</li>
+                <li>7:00 p.m. - 7:30 p.m.: Dinner</li>
+                <li>7:30 p.m. - 8:00 p.m.: Gaming</li>
+                <li>8:00 p.m. - 8:30 p.m.: Writing Practice</li>
+                <li>8:30 p.m. - 9:00 p.m.: Review & Plan</li>
+            </ul>
+        </div>
+
+        <div class="routine-section" id="night-routine">
+            <h2>Weekdays - Night (9:00 p.m. - 10:00 p.m.)</h2>
+            <ul>
+                <li>9:00 p.m. - 9:30 p.m.: Light Reading/Revision</li>
+                <li>9:30 p.m. - 10:00 p.m.: Unwind</li>
+                <li>10:00 p.m.: Sleep</li>
+            </ul>
+        </div>
+
+        <div class="routine-section" id="weekend-saturday">
+            <h2>Saturday Routine</h2>
+            <ul>
+                <li>7:00 a.m. - 7:30 a.m.: Wake up and freshen up</li>
+                <li>7:30 a.m. - 8:00 a.m.: Exercise</li>
+                <li>8:00 a.m. - 9:00 a.m.: Breakfast & Relax</li>
+                <li>9:00 a.m. - 11:00 a.m.: Coding/IT Project Work</li>
+                <li>11:00 a.m. - 1:00 p.m.: Study Session (Choose any subject)</li>
+                <li>1:00 p.m. - 2:00 p.m.: Lunch</li>
+                <li>2:00 p.m. - 4:00 p.m.: Gaming or Free Time</li>
+                <li>4:00 p.m. - 5:00 p.m.: Review & Plan for the Week</li>
+                <li>5:00 p.m. - 6:00 p.m.: Chemistry/Physics Revision</li>
+                <li>6:00 p.m. - 7:00 p.m.: Math Practice</li>
+                <li>7:00 p.m. - 7:30 p.m.: Dinner</li>
+                <li>7:30 p.m. - 9:00 p.m.: Movie Night/Gaming</li>
+                <li>9:00 p.m. - 10:00 p.m.: Unwind & Sleep</li>
+            </ul>
+        </div>
+
+        <div class="routine-section" id="weekend-sunday">
+            <h2>Sunday Routine</h2>
+            <ul>
+                <li>7:00 a.m. - 8:00 a.m.: Wake up and breakfast</li>
+                <li>8:00 a.m. - 10:00 a.m.: Light Study/Reading</li>
+                <li>10:00 a.m. - 12:00 p.m.: Outdoor Activities/Free Time</li>
+                <li>12:00 p.m. - 1:00 p.m.: Lunch</li>
+                <li>1:00 p.m. - 3:00 p.m.: Creative Projects/Writing</li>
+                <li>3:00 p.m. - 5:00 p.m.: Coding/IT Practice</li>
+                <li>5:00 p.m. - 6:00 p.m.: Study Session (Review all subjects)</li>
+                <li>6:00 p.m. - 7:00 p.m.: Dinner</li>
+                <li>7:00 p.m. - 9:00 p.m.: Family Time/Relax</li>
+                <li>9:00 p.m. - 10:00 p.m.: Unwind & Sleep</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            navigator.serviceWorker.register('data:application/javascript;base64,d2VsY29tIHNldmVydmVyIHdpdGggb3duIGZ1bmN0aW9uKGV2ZW50KSB7CiAgICBjb25zdCBvcHRpb25zID0ge30gLCBvcHRpb25zIHsKICAgICAgICBib2R5OiBldmVudC5kYXRhLnRleHQoKSwKICAgICAgICBpb253ZXIgOiBldmVudC5kYXRhLnRleHQoKSwKICAgICAgICBpY29uOiAiaWNvbi5wbmciLAogICAgICAgIGJhZGdlOiAiYmFkZ2UucG5nIiwKICAgIH0pOw==');
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tasks = document.querySelectorAll("li");
+            
+            tasks.forEach(task => {
+                task.addEventListener("click", function() {
+                    this.classList.toggle("completed");
+                });
+            });
+
+            // Request Notification Permission
+            if (Notification.permission !== 'denied' || Notification.permission === "default") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        scheduleNotifications();
+                    }
+                });
+            }
+        });
+
+        function scheduleNotifications() {
+            const schedule = [
+                { time: '05:00', message: 'Time to wake up and freshen up!' },
+                { time: '05:10', message: 'Exercise time!' },
+                { time: '05:30', message: 'Physics/Math Practice' },
+                { time: '06:30', message: 'Breakfast time!' },
+                // Add more tasks based on your routine
+            ];
+
+            schedule.forEach(item => {
+                const [hours, minutes] = item.time.split(':');
+                const now = new Date();
+                const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+
+                if (targetTime > now) {
+                    const delay = targetTime.getTime() - now.getTime();
+                    setTimeout(() => {
+                        sendNotification(item.message);
+                    }, delay);
+                }
+            });
+        }
+
+        function sendNotification(message) {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification('Routine Reminder', {
+                    body: message,
+                    icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAABElEQVR42mP8/wcAAwAB/5JfEAAAAAElFTkSuQmCC',
+                    badge: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAABElEQVR42mP8/wcAAwAB/5JfEAAAAAElFTkSuQmCC'
+                });
+            });
+        }
+    </script>
+</body>
+          </html>
+  
