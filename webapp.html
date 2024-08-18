@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            width: 320px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            background-color: #e0e0e0;
+            text-align: right;
+            padding: 10px;
+            font-size: 24px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button.operator {
+            background-color: #ff9500;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display" class="display">0</div>
+        <div class="buttons">
+            <button class="button" onclick="input('7')">7</button>
+            <button class="button" onclick="input('8')">8</button>
+            <button class="button" onclick="input('9')">9</button>
+            <button class="button operator" onclick="input('/')">/</button>
+            <button class="button" onclick="input('4')">4</button>
+            <button class="button" onclick="input('5')">5</button>
+            <button class="button" onclick="input('6')">6</button>
+            <button class="button operator" onclick="input('*')">*</button>
+            <button class="button" onclick="input('1')">1</button>
+            <button class="button" onclick="input('2')">2</button>
+            <button class="button" onclick="input('3')">3</button>
+            <button class="button operator" onclick="input('-')">-</button>
+            <button class="button" onclick="input('0')">0</button>
+            <button class="button" onclick="input('.')">.</button>
+            <button class="button" onclick="calculate()">=</button>
+            <button class="button operator" onclick="input('+')">+</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '';
+
+        function input(value) {
+            if (currentInput === '0' && value !== '.') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            display.innerText = currentInput;
+        }
+
+        function calculate() {
+            try {
+                currentInput = eval(currentInput);
+                display.innerText = currentInput;
+            } catch (error) {
+                display.innerText = 'Error';
+                currentInput = '';
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            display.innerText = '0';
+        }
+
+        // Register the service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+
+    <!-- Manifest -->
+    <script type="application/manifest+json">
+    {
+      "name": "Scientific Calculator",
+      "short_name": "Calculator",
+      "description": "A simple scientific calculator PWA.",
+      "start_url": "/webapp.html",
+      "display": "standalone",
+      "background_color": "#ffffff",
+      "theme_color": "#000000",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><title>Calculator Icon</title><desc>A simple calculator icon for the scientific calculator PWA</desc><rect x='4' y='2' width='16' height='20' rx='2' ry='2' fill='%23e0e0e0'></rect><rect x='8' y='6' width='8' height='4' fill='%23333'></rect><rect x='7' y='12' width='2' height='2' fill='%23333'></rect><rect x='11' y='12' width='2' height='2' fill='%23333'></rect><rect x='15' y='12' width='2' height='2' fill='%23333'></rect><rect x='7' y='16' width='2' height='2' fill='%23333'></rect><rect x='11' y='16' width='2' height='2' fill='%23333'></rect><rect x='15' y='16' width='2' height='2' fill='%23333'></rect></svg>",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Service Worker -->
+    <script>
+        self.addEventListener('install', event => {
+            event.waitUntil(
+                caches.open('v1').then(cache => {
+                    return cache.addAll([
+                        '/',
+                        '/index.html'
+                    ]);
+                })
+            );
+        });
+
+        self.addEventListener('fetch', event => {
+            event.respondWith(
+                caches.match(event.request).then(response => {
+                    return response || fetch(event.request);
+                })
+            );
+        });
+    </script>
+</body>
+              </html>
+  
