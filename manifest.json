@@ -1,7 +1,7 @@
 {
     "name": "Daily Schedule",
     "short_name": "Schedule",
-    "start_url": "/",
+    "start_url": "/Daily_Schedule.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
