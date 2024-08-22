@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        #task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #task-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #task-list li:last-child {
+            border-bottom: none;
+        }
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .controls button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Scheduler</h1>
+        <div class="controls">
+            <button id="increase-time">Increase Time by 1 min</button>
+            <button id="skip-time">Skip to Next Task</button>
+        </div>
+        <ul id="task-list">
+            <!-- Tasks will be injected here -->
+        </ul>
+    </div>
+    <script>
+        const schedule = [
+            ["wake-up! wash your face", 3],
+            ["workout", 10],
+            ["refill the water bottle", 2],
+            ["revise previous topics", 120],
+            ["go to the market", 15],
+            ["get ready for college", 60],
+            ["college period", 420],
+            ["wash your face and change cloths", 5],
+            ["lunch time", 15],
+            ["refill the water bottle", 2],
+            ["set study targets", 3],
+            ["coding session", 30],
+            ["go for a walk", 10],
+            ["start study", 304],
+            ["make your bed", 2],
+            ["go to washroom", 2],
+            ["go to sleep", 420]
+        ];
+
+        const scheduleStart = 300; // "5:00"
+        const scheduleEnd = 60 * 24; // "24:00"
+
+        let currentTime = (new Date().getHours() * 60) + new Date().getMinutes();
+        let currentTimeAccumulated = scheduleStart;
+
+        function renderSchedule() {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+
+            schedule.forEach(([task, duration]) => {
+                const taskStartTime = currentTimeAccumulated % scheduleEnd;
+                const taskEndTime = (taskStartTime + duration) % scheduleEnd;
+
+                let taskStartTimeH = Math.floor(taskStartTime / 60);
+                let taskStartTimeM = taskStartTime % 60;
+                let taskEndTimeH = Math.floor(taskEndTime / 60);
+                let taskEndTimeM = taskEndTime % 60;
+
+                taskStartTimeH = taskStartTimeH < 10 ? '0' + taskStartTimeH : taskStartTimeH;
+                taskStartTimeM = taskStartTimeM < 10 ? '0' + taskStartTimeM : taskStartTimeM;
+                taskEndTimeH = taskEndTimeH < 10 ? '0' + taskEndTimeH : taskEndTimeH;
+                taskEndTimeM = taskEndTimeM < 10 ? '0' + taskEndTimeM : taskEndTimeM;
+
+                if (currentTime >= taskStartTime && currentTime <= taskEndTime) {
+                    document.title = `Task: ${task}`;
+                    showNotification(`Started: ${task}`);
+                }
+
+                taskList.innerHTML += `
+                    <li>
+                        <strong>${task}</strong> (${taskStartTimeH}:${taskStartTimeM} - ${taskEndTimeH}:${taskEndTimeM})
+                    </li>
+                `;
+
+                currentTimeAccumulated = (taskEndTime + 1) % scheduleEnd; // Avoid overlap
+            });
+        }
+
+        function showNotification(message) {
+            if (Notification.permission === 'granted') {
+                navigator.serviceWorker.getRegistration().then(function(reg) {
+                    reg.showNotification(message);
+                });
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === 'granted') {
+                        navigator.serviceWorker.getRegistration().then(function(reg) {
+                            reg.showNotification(message);
+                        });
+                    }
+                });
+            }
+        }
+
+        function increaseTime() {
+            currentTime = (currentTime + 1) % scheduleEnd;
+            renderSchedule();
+        }
+
+        function skipToNextTask() {
+            let nextStartTime = scheduleStart;
+            for (const [task, duration] of schedule) {
+                const taskEndTime = (nextStartTime + duration) % scheduleEnd;
+                if (currentTime < taskEndTime) {
+                    currentTime = taskEndTime;
+                    break;
+                }
+                nextStartTime = (taskEndTime + 1) % scheduleEnd;
+            }
+            renderSchedule();
+        }
+
+        document.getElementById('increase-time').addEventListener('click', increaseTime);
+        document.getElementById('skip-time').addEventListener('click', skipToNextTask);
+
+        // Request notification permission
+        if (Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        renderSchedule();
+
+        // Register the service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                console.log('Service Worker Registered');
+            }).catch(function(error) {
+                console.error('Service Worker Registration Failed:', error);
+            });
+        }
+    </script>
+</body>
+      </html>
+  
