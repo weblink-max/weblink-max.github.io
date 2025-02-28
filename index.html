@@ -11,6 +11,13 @@
             padding: 0;
             box-sizing: border-box;
         }
+        #main{
+            height: calc(100vh - 100px);
+            position: fixed;
+            top: 50px;
+            overflow: scroll;
+
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #e0f7fa;
@@ -77,8 +84,8 @@
     <header>
         <h1>Web Link Max</h1>
     </header>
-
-    <div class="container">
+    <div id="main">
+      <div class="container">
         <a href="/dailyword.html">Daily Word</a>
     </div>
     <div class="container">
@@ -98,6 +105,7 @@
     </div>
     <div class="container">
         <a href="/Daily_Schedule.html">Daily Schedule</a>
+    </div>
     </div>
     <footer>
         <p>&copy; 2024 weblink-max Company. All rights reserved.</p>
